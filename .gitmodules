@@ -1,0 +1,3 @@
+[submodule "submodules/memcached"]
+	path = submodules/memcached
+	url = https://github.com/docker-library/memcached.git
