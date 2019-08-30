@@ -1,1 +1,1 @@
-submodules/memcached/debian/docker-entrypoint.sh
+../submodules/memcached/debian/docker-entrypoint.sh
