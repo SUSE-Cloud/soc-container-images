@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- The line below is required in order to use the multibuild OBS features -->
+<!-- OBS-Profiles: @BUILD_FLAVOR@ -->
+
+<image xmlns:suse_label_helper="com.suse.label_helper" schemaversion="6.9" name="memcached-image">
+  <description type="system">
+    <author>SUSE OpenStack Cloud Team</author>
+    <contact>cloud@suse.com</contact>
+    <specification>memcached container</specification>
+  </description>
+  <profiles>
+    <profile name="openSUSE_Tumbleweed" description="Container based on openSUSE Tumbleweed"/>
+    <!-- <profile name="openSUSE_Leap_15.1" description="Container based on openSUSE Leap 15.1"/> -->
+    <!-- <profile name="SLE_15_SP1" description="Container based on SLE 15 SP1"/> -->
+  </profiles>
+
+  <preferences>
+    <version>1.0.0</version>
+    <packagemanager>zypper</packagemanager>
+    <rpm-check-signatures>false</rpm-check-signatures>
+    <rpm-excludedocs>true</rpm-excludedocs>
+  </preferences>
+
+  <!-- openSUSE Tumbleweed specific preferences -->
+  <preferences profiles="openSUSE_Tumbleweed">
+    <type image="docker" derived_from="obsrepositories:/opensuse/tumbleweed">
+      <containerconfig user="memcached" additionaltags="%LONG_VERSION%,%LONG_VERSION%-%RELEASE%" maintainer="SUSE Cloud Team &lt;cloud@suse.com&gt;" name="opensuse/memcached" tag="latest">
+        <expose>
+          <port number="11211/tcp"/>
+          <port number="11211/udp"/>
+        </expose>
+        <subcommand execute="/usr/sbin/memcached"/>
+        <entrypoint execute="/usr/local/sbin/docker-entrypoint.sh"/>
+        <labels>
+          <suse_label_helper:add_prefix prefix="org.opensuse.memcached">
+            <label name="org.opencontainers.image.title" value="memcached container"/>
+            <label name="org.opencontainers.image.description" value="memcached container"/>
+            <label name="org.opencontainers.image.version" value="%LONG_VERSION%-%RELEASE%"/>
+            <label name="org.opencontainers.image.created" value="%BUILDTIME%"/>
+            <label name="org.openbuildservice.disturl" value="%DISTURL%"/>
+            <label name="org.opensuse.reference" value="registry.opensuse.org/opensuse/memcached:%LONG_VERSION%-%RELEASE%"/>
+          </suse_label_helper:add_prefix>
+        </labels>
+        <history author="Thomas Bechtold &lt;tbechtold@suse.com&gt;">memcached</history>
+      </containerconfig>
+    </type>
+  </preferences>
+
+  <repository type="rpm-md">
+    <source path="obsrepositories:/"/>
+  </repository>
+
+  <packages type="image">
+    <package name="ca-certificates"/>
+    <package name="memcached"/>
+    <package name="openSUSE-build-key"/>
+  </packages>
+</image>
