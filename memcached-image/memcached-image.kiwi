@@ -11,7 +11,7 @@
   </description>
   <profiles>
     <profile name="openSUSE_Tumbleweed" description="Container based on openSUSE Tumbleweed"/>
-    <!-- <profile name="openSUSE_Leap_15.1" description="Container based on openSUSE Leap 15.1"/> -->
+    <profile name="openSUSE_Leap_15.1" description="Container based on openSUSE Leap 15.1"/>
     <profile name="SLE_15_SP1" description="Container based on SLE 15 SP1"/>
   </profiles>
 
@@ -25,6 +25,31 @@
   <!-- openSUSE Tumbleweed specific preferences -->
   <preferences profiles="openSUSE_Tumbleweed">
     <type image="docker" derived_from="obsrepositories:/opensuse/tumbleweed">
+      <containerconfig user="memcached" additionaltags="%LONG_VERSION%,%LONG_VERSION%-%RELEASE%" maintainer="SUSE Cloud Team &lt;cloud@suse.com&gt;" name="opensuse/memcached" tag="latest">
+        <expose>
+          <port number="11211/tcp"/>
+          <port number="11211/udp"/>
+        </expose>
+        <subcommand execute="/usr/sbin/memcached"/>
+        <entrypoint execute="/usr/local/sbin/docker-entrypoint.sh"/>
+        <labels>
+          <suse_label_helper:add_prefix prefix="org.opensuse.memcached">
+            <label name="org.opencontainers.image.title" value="memcached container"/>
+            <label name="org.opencontainers.image.description" value="memcached container"/>
+            <label name="org.opencontainers.image.version" value="%LONG_VERSION%-%RELEASE%"/>
+            <label name="org.opencontainers.image.created" value="%BUILDTIME%"/>
+            <label name="org.openbuildservice.disturl" value="%DISTURL%"/>
+            <label name="org.opensuse.reference" value="registry.opensuse.org/opensuse/memcached:%LONG_VERSION%-%RELEASE%"/>
+          </suse_label_helper:add_prefix>
+        </labels>
+        <history author="Thomas Bechtold &lt;tbechtold@suse.com&gt;">memcached</history>
+      </containerconfig>
+    </type>
+  </preferences>
+
+  <!-- openSUSE Leap 15.1 specific preferences -->
+  <preferences profiles="openSUSE_Leap_15.1">
+    <type image="docker" derived_from="obsrepositories:/opensuse/leap#15.1">
       <containerconfig user="memcached" additionaltags="%LONG_VERSION%,%LONG_VERSION%-%RELEASE%" maintainer="SUSE Cloud Team &lt;cloud@suse.com&gt;" name="opensuse/memcached" tag="latest">
         <expose>
           <port number="11211/tcp"/>
@@ -83,6 +108,12 @@
   </packages>
 
   <packages type="image" profiles="openSUSE_Tumbleweed">
+    <package name="ca-certificates"/>
+    <package name="memcached"/>
+    <package name="openSUSE-build-key"/>
+  </packages>
+
+  <packages type="image" profiles="openSUSE_Leap_15.1">
     <package name="ca-certificates"/>
     <package name="memcached"/>
     <package name="openSUSE-build-key"/>
