@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<param>
+  <container_base_image>obsrepositories:/suse/sle15#15.1</container_base_image>
+  <container_name>memcached</container_name>
+  <container_tag>%LONG_VERSION%-%RELEASE%</container_tag>
+  <label_helper_prefix>com.suse.soc.memcached</label_helper_prefix>
+  <reference>memcached:%LONG_VERSION%-%RELEASE%</reference>
+  <packages_image>
+    <package>
+      <name>suse-build-key</name>
+    </package>
+  </packages_image>
+</param>
