@@ -85,30 +85,36 @@
     <source path='obsrepositories:/'/>
   </repository>
 
-  <packages type="image">
-    <package name="ca-certificates"/>
-    <package name="memcached"/>
+  <!-- extra packages for image -->
+  <xsl:variable name="packages_image" select="param/packages_image/package" />
+  <xsl:if test="count($packages_image)!=0">
+    <packages type="image">
+      <package name="ca-certificates"/>
+      <package name="memcached"/>
 
-    <!-- extra packages for image -->
-    <xsl:for-each select="param/packages_image/package">
-      <package>
-        <xsl:attribute name="name">
-          <xsl:value-of select="name"/>
-        </xsl:attribute>
-      </package>
-    </xsl:for-each>
-  </packages>
+      <xsl:for-each select="$packages_image">
+        <package>
+          <xsl:attribute name="name">
+            <xsl:value-of select="name"/>
+          </xsl:attribute>
+        </package>
+      </xsl:for-each>
+    </packages>
+  </xsl:if>
 
   <!-- extra packages for bootstrap -->
-  <packages type='bootstrap'>
-    <xsl:for-each select="param/packages_boot/package">
-      <package>
-        <xsl:attribute name="name">
-          <xsl:value-of select="name"/>
-        </xsl:attribute>
-      </package>
-    </xsl:for-each>
-  </packages>
+  <xsl:variable name="packages_bootstrap" select="param/packages_boot/package" />
+  <xsl:if test="count($packages_bootstrap)!=0">
+    <packages type='bootstrap'>
+      <xsl:for-each select="$packages_bootstrap">
+        <package>
+          <xsl:attribute name="name">
+            <xsl:value-of select="name"/>
+          </xsl:attribute>
+        </package>
+      </xsl:for-each>
+    </packages>
+  </xsl:if>
 
 </image>
 
