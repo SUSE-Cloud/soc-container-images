@@ -88,7 +88,6 @@
   <packages type="image">
     <package name="ca-certificates"/>
     <package name="memcached"/>
-    <archive name="memcached-docker-entrypoint.tar"/>
 
     <!-- extra packages for image -->
     <xsl:for-each select="param/packages_image/package">
