@@ -1,0 +1,19 @@
+---
+# Common variables for all memcached kiwi files
+description: "memcached container"
+version:
+  long: "%LONG_VERSION%"
+  full: "%LONG_VERSION%-%RELEASE%"
+containerconfig:
+  user: "memcached"
+  maintainer: "SUSE Cloud Team &lt;cloud@suse.com&gt;"
+  name: "memcached"
+  expose:
+    - "11211/tcp"
+    - "11211/udp"
+
+  subcommand: "/usr/sbin/memcached"
+  entrypoint: "/usr/local/sbin/docker-entrypoint.sh"
+  labels:
+    prefix: None  # FIXME
+    reference: None  # FIXME: registry.opensuse.org/opensuse/memcached:%LONG_VERSION%-%RELEASE%
