@@ -1,0 +1,7 @@
+derived_from: "obsrepositories:/suse/sle15#15.1"
+containerconfig:
+  labels:
+    prefix: "com.suse.soc.memcached"
+packages:
+  image:
+    - suse-build-key
