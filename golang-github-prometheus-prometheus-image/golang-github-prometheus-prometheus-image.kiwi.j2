@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  This file is generated, don't manually modify this file!
+-->
+<image name="golang-github-prometheus-prometheus-image" schemaversion="6.9" xmlns:suse_label_helper="com.suse.label_helper">
+
+  <description type="system">
+    <author>{{ author }}</author>
+    <contact>{{ contact }}</contact>
+    <specification>Prometheus container</specification>
+  </description>
+  <preferences>
+    <type image="docker" derived_from="{{ derived_from }}">
+      <containerconfig user="prometheus" additionaltags="%LONG_VERSION%,%LONG_VERSION%-%RELEASE%" maintainer="SUSE Cloud Team &lt;cloud@suse.com&gt;" name="prometheus">
+        <expose>
+          <port number="9090"/>
+        </expose>
+        <entrypoint execute="/usr/bin/prometheus">
+            <argument name="--config.file=/etc/prometheus/prometheus.yml"/>
+            <argument name="--storage.tsdb.path=/prometheus"/>
+            <argument name="--web.console.libraries=/usr/share/prometheus/console_libraries"/>
+            <argument name="--web.console.templates=/usr/share/prometheus/consoles"/>
+        </entrypoint>
+        <subcommand clear="true"/>
+        <labels>
+          <label name="org.opencontainers.image.title" value="Prometheus containe"/>
+          <label name="org.opencontainers.image.description" value="Prometheus container based on %OS_PRETTY_NAME% "/>
+          <label name="org.opencontainers.image.version" value="%LONG_VERSION%-%RELEASE%"/>
+          <label name="org.opencontainers.image.created" value="%BUILDTIME%"/>
+          <label name="org.openbuildservice.disturl" value="%DISTURL%"/>
+          <label name="org.opensuse.reference" value="{{ containerconfig.labels.reference_prefix }}:%LONG_VERSION%-%RELEASE%"/>
+        </labels>
+        <history author="{{ contact }}">{{ author }}</history>
+     </containerconfig>
+     <systemdisk name="vgroup">
+       <volume name="tsdb_volume" mountpoint="/prometheus" copy_on_write="false"/>
+     </systemdisk>
+    </type>
+    <version>1.0.0</version>
+    <packagemanager>zypper</packagemanager>
+    <rpm-check-signatures>false</rpm-check-signatures>
+    <rpm-excludedocs>true</rpm-excludedocs>
+  </preferences>
+  <repository>
+    <source path='obsrepositories:/'/>
+  </repository>
+  <packages type="image">
+    <package name="ca-certificates"/>
+    <package name="golang-github-prometheus-prometheus"/>
+    {%- for pkg in packages.image %}
+    <package name="{{ pkg }}"/>
+    {%- endfor %}
+  </packages>
+</image>

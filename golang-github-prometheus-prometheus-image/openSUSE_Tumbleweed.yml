@@ -1,0 +1,7 @@
+derived_from: "obsrepositories:/opensuse/tumbleweed"
+containerconfig:
+  labels:
+    reference_prefix: "registry.opensuse.org/opensuse/golang-github-prometheus-prometheus-image"
+packages:
+  image:
+    - openSUSE-build-key

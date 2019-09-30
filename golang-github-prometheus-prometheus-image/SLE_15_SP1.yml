@@ -1,0 +1,7 @@
+derived_from: "obsrepositories:/suse/sle15#15.1"
+containerconfig:
+  labels:
+    reference_prefix: "registry.suse.com/suse/soc/golang-github-prometheus-prometheus-image"
+packages:
+  image:
+    - suse-build-key
