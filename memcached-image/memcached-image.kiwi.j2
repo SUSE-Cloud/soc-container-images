@@ -1,42 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  This file is generated, don't manually modify this file!
--->
+{{ header }}
 <image xmlns:suse_label_helper="com.suse.label_helper" schemaversion="6.9" name="memcached-image">
   <description type="system">
-    <author>{{ author }}</author>
-    <contact>{{ contact }}</contact>
-    <specification>{{ description }}</specification>
+    <author>{{ image.description.author }}</author>
+    <contact>{{ image.description.contact }}</contact>
+    <license>Apache-2.0</license>
+    <specification>{{ image.description.long }}</specification>
   </description>
   <preferences>
     <type image="docker" derived_from="{{ derived_from }}">
-      <containerconfig user="{{ containerconfig.user }}" additionaltags="{{ version.long }},{{ version.full }}" maintainer="{{ containerconfig.maintainer }}" name="{{ containerconfig.name }}">
+      <containerconfig user="{{ image.containerconfig.user }}" additionaltags="{{ image.containerconfig.version.long }},{{ image.containerconfig.version.full }}" maintainer="{{ image.containerconfig.maintainer }}" name="{{ image.containerconfig.name }}">
         <expose>
-          {%- for e in containerconfig.expose %}
+          {%- for e in image.containerconfig.expose %}
           <port number="{{ e }}"/>
           {%- endfor %}
         </expose>
-        <subcommand execute="{{ containerconfig.subcommand }}"/>
-        <entrypoint execute="{{ containerconfig.entrypoint }}"/>
+        <subcommand execute="{{ image.containerconfig.subcommand }}"/>
+        <entrypoint execute="{{ image.containerconfig.entrypoint }}"/>
         <labels>
-          <label name="org.opencontainers.image.title" value="{{ description }}"/>
-          <label name="org.opencontainers.image.description" value="{{ description }}"/>
-          <label name="org.opencontainers.image.version" value="{{ version.full }}"/>
+          <label name="org.opencontainers.image.title" value="{{ image.description.short }}"/>
+          <label name="org.opencontainers.image.description" value="{{ image.description.long }}"/>
+          <label name="org.opencontainers.image.version" value="{{ image.containerconfig.version.full }}"/>
           <label name="org.opencontainers.image.created" value="%BUILDTIME%"/>
           <label name="org.openbuildservice.disturl" value="%DISTURL%"/>
-          <label name="org.opensuse.reference" value="{{ containerconfig.labels.reference }}"/>
         </labels>
-        <history author="{{ containerconfig.maintainer }}">{{ containerconfig.name }}</history>
+        <history author="{{ image.description.author }}">{{ image.containerconfig.name }}</history>
       </containerconfig>
     </type>
-    <version>1.0.0</version>
-    <packagemanager>zypper</packagemanager>
-    <rpm-check-signatures>false</rpm-check-signatures>
-    <rpm-excludedocs>true</rpm-excludedocs>
+    {{ image.preferences.basics }}
   </preferences>
-  <repository type="rpm-md">
-    <source path="obsrepositories:/"/>
-  </repository>
+  {{ image.repository }}
   <packages type="image">
     <package name="ca-certificates"/>
     <package name="memcached"/>

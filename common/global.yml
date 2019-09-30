@@ -1,3 +1,32 @@
 ---
+header: |
+  <!--
+  This file is generated, don't manually modify this file!
+  The source is https://github.com/SUSE-Cloud/soc-container-images/
+  -->
+
 author: SUSE OpenStack Cloud Team
 contact: cloud@suse.com
+image:
+  description:
+    author: SUSE Cloud team
+    contact: cloud@suse.com
+    short: A container
+    long: A container
+
+  preferences:
+    basics: |
+      <version>1.0.0</version>
+      <packagemanager>zypper</packagemanager>
+      <rpm-check-signatures>false</rpm-check-signatures>
+      <rpm-excludedocs>true</rpm-excludedocs>
+
+  repository: |
+    <repository type="rpm-md">
+      <source path="obsrepositories:/"/>
+    </repository>
+
+  containerconfig:
+    version:
+      long: "%LONG_VERSION%"
+      full: "%LONG_VERSION%-%RELEASE%"

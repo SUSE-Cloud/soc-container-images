@@ -1,7 +1,4 @@
 derived_from: "obsrepositories:/opensuse/tumbleweed"
-containerconfig:
-  labels:
-    prefix: "org.opensuse.memcached"
 packages:
   image:
     - openSUSE-build-key
