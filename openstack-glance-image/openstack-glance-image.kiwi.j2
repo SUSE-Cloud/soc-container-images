@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+{{ header }}
+<image schemaversion="6.9" name="openstack-glance-image">
+  <description type="system">
+    <author>{{ image.description.author }}</author>
+    <contact>{{ image.description.contact }}</contact>
+    <license>Apache-2.0</license>
+    <specification>{{ image.description.long }}</specification>
+  </description>
+  <preferences>
+    <type image="docker" derived_from="{{ derived_from }}">
+      <containerconfig
+          tag="latest"
+          additionaltags="{{ image.containerconfig.version.long }},{{ image.containerconfig.version.full }}"
+          maintainer="{{ image.description.author }} &lt;{{ image.description.contact }}&gt;"
+          name="{{ namespace }}{{ image.containerconfig.name }}">
+        <labels>
+          <label name="org.opencontainers.image.title" value="{{ image.description.short }}"/>
+          <label name="org.opencontainers.image.description" value="{{ image.description.long }}"/>
+          <label name="org.opencontainers.image.version" value="{{ image.containerconfig.version.full }}"/>
+          <label name="org.opencontainers.image.created" value="%BUILDTIME%"/>
+          <label name="org.openbuildservice.disturl" value="%DISTURL%"/>
+        </labels>
+        <history author="{{ image.description.author }}">{{ image.containerconfig.name }}</history>
+      </containerconfig>
+    </type>
+    {{ image.preferences.basics }}
+  </preferences>
+  {{ image.repository }}
+  <packages type="image">
+    <package name="openstack-glance"/>
+    <package name="openstack-glance-api"/>
+    <package name="openstack-glance-registry"/>
+  </packages>
+</image>
