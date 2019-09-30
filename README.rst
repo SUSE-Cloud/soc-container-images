@@ -56,6 +56,19 @@ Instead of manually running `j2gen` with all the needed parameters, there is a
 `j2gen source service`_ available. This service will render the kiwi.j2 template
 into a .kiwi file.
 
+Contributing and testing
+========================
+
+Contributions are welcome. Please open pull requests (PR) against
+https://github.com/SUSE-Cloud/soc-container-images/ .
+
+Running j2gen and validate with kiwi
+++++++++++++++++++++++++++++++++++++
+
+There is a script to run `j2gen` and `kiwi` for validation. To execute
+this locally, do::
+
+  tox -evalidate
 
 
 .. _kiwi: https://osinside.github.io/kiwi/index.html
