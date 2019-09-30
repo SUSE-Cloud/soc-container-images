@@ -13,7 +13,7 @@
           tag="latest"
           additionaltags="{{ image.containerconfig.version.long }},{{ image.containerconfig.version.full }}"
           maintainer="{{ image.description.author }} &lt;{{ image.description.contact }}&gt;"
-          name="{{ image.containerconfig.name }}">
+          name="{{namespace}}{{ image.containerconfig.name }}">
         <labels>
           <label name="org.opencontainers.image.title" value="{{ image.description.short }}"/>
           <label name="org.opencontainers.image.description" value="{{ image.description.long }}"/>

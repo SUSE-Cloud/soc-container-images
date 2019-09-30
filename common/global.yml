@@ -1,4 +1,5 @@
 ---
+namespace: ""
 header: |
   <!--
   This file is generated, don't manually modify this file!

@@ -9,7 +9,11 @@
   </description>
   <preferences>
     <type image="docker" derived_from="{{ derived_from }}">
-      <containerconfig user="{{ image.containerconfig.user }}" additionaltags="{{ image.containerconfig.version.long }},{{ image.containerconfig.version.full }}" maintainer="{{ image.containerconfig.maintainer }}" name="{{ image.containerconfig.name }}">
+      <containerconfig
+          user="{{ image.containerconfig.user }}"
+          additionaltags="{{ image.containerconfig.version.long }},{{ image.containerconfig.version.full }}"
+          maintainer="{{ image.containerconfig.maintainer }}"
+          name="{{namespace}}{{ image.containerconfig.name }}">
         <expose>
           {%- for e in image.containerconfig.expose %}
           <port number="{{ e }}"/>
