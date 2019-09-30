@@ -1,0 +1,5 @@
+---
+# Common variables for all openstack-services-base-image kiwi files
+image:
+  containerconfig:
+    name: "openstack-services-base-image"
